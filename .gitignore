@@ -68,6 +68,9 @@ coverage/
 .phpunit.cache/
 .phpunit.result.cache
 
+# Local Codex work plans
+/agent/
+
 # Temporary and backup files
 *.tmp
 *.temp
