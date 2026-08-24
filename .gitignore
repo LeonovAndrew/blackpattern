@@ -1,0 +1,78 @@
+# Operating-system and editor metadata
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.idea/
+.vscode/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.swp
+*.swo
+*~
+~$*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+*.local.php
+*.secret.php
+*.pem
+*.key
+
+# 1C-Bitrix core and runtime data
+/bitrix/
+/upload/
+/tmp/
+/backup/
+/restore/
+/local/cache/
+/local/managed_cache/
+/local/stack_cache/
+/local/session/
+/local/tmp/
+/local/logs/
+/local/backup/
+
+# Bitrix installers and recovery scripts
+/bitrixsetup.php
+/restore.php
+/restore.php.gz
+
+# Runtime logs, reports and PID files
+*.log
+*.log.*
+*.pid
+*.seed
+*.cache
+
+# Local database dumps and archives
+/*.sql
+/*.sql.gz
+/*.dump
+/*.zip
+/*.tar
+/*.tar.gz
+/*.tgz
+/*.7z
+# Dependency and test artifacts
+node_modules/
+.npm/
+.yarn/
+.pnpm-store/
+coverage/
+.phpunit.cache/
+.phpunit.result.cache
+
+# Temporary and backup files
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+*.part
+*.crdownload

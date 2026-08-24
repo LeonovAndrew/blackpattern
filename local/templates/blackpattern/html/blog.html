@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Журнал — как устроен отдел маркетинга | Black Pattern</title>
+<meta name="description" content="Материалы по одной теме: устройство отдела маркетинга, найм, метрики и управление. Разбор для собственников, HR-директоров и директоров по маркетингу.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--off:#F5F4F1;--ink:#0A0B0C;--txt:#565D63;--txt-lo:#8B9298;
+  --line:#E3E2DE;--line-2:#CDCCC7;--night:#06080B;--night-txt:#9AA3AB;--night-lo:#69727A;--night-line:#222A31;
+  --red:#E1251B;
+  --f-d:'Archivo',system-ui,sans-serif;--f-b:'IBM Plex Sans',system-ui,sans-serif;--f-m:'IBM Plex Mono',ui-monospace,monospace;
+  --max:1260px;--pad:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{font-family:var(--f-b);background:var(--white);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 var(--pad)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--f-d);font-weight:800;letter-spacing:-.035em;line-height:1}
+.tag{font-family:var(--f-m);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+
+/* header */
+header{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:24px}
+.logo{font-family:var(--f-d);font-weight:900;font-size:15px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.logo .sq{width:10px;height:10px;background:var(--red);flex:none}
+.nav-links{display:flex;gap:26px;list-style:none;font-family:var(--f-m);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase}
+.nav-links a{color:var(--txt);transition:.15s}.nav-links a:hover,.nav-links a.on{color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-m);font-weight:500;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;padding:16px 26px;border:1px solid transparent;cursor:pointer;transition:.18s}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}.btn-red:hover{background:var(--ink);border-color:var(--ink)}
+.btn-out{background:transparent;color:var(--ink);border-color:var(--line-2)}.btn-out:hover{border-color:var(--ink)}
+.burger{display:none;background:none;border:1px solid var(--line-2);width:44px;height:40px;cursor:pointer;font-size:17px}
+@media(max-width:1000px){.nav-links{display:none}.burger{display:block}}
+@media(max-width:520px){.nav .btn{display:none}}
+
+/* hero */
+.bhero{border-bottom:1px solid var(--line);padding:clamp(56px,7vw,104px) 0 clamp(40px,4vw,56px)}
+.bhero .tag{display:block;margin-bottom:20px}
+.bhero h1{font-size:clamp(38px,6.4vw,84px);letter-spacing:-.045em;line-height:.96;text-transform:uppercase;max-width:16ch}
+.bhero p{margin-top:24px;max-width:64ch;font-size:clamp(15.5px,1.2vw,18px);color:var(--txt);line-height:1.6}
+.bhero .meta{margin-top:30px;font-family:var(--f-m);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-lo);display:flex;gap:22px;flex-wrap:wrap}
+.bhero .meta b{color:var(--ink)}
+
+/* filter bar (разводящая) */
+.filterbar{position:sticky;top:70px;z-index:40;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.fb-row{display:flex;align-items:center;gap:16px;padding:16px 0;flex-wrap:wrap}
+.fb-lab{font-family:var(--f-m);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-lo);flex:none}
+.roles{display:flex;gap:8px;flex-wrap:wrap}
+.chip{font-family:var(--f-m);font-size:11.5px;letter-spacing:.05em;text-transform:uppercase;padding:10px 16px;border:1px solid var(--line-2);background:transparent;cursor:pointer;color:var(--txt);transition:.15s;display:inline-flex;align-items:center;gap:8px}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.dot{width:8px;height:8px;flex:none}
+.dot.own{background:var(--ink)}.chip[aria-pressed=true] .dot.own{background:#fff}
+.dot.hr{background:var(--red)}
+.dot.cmo{border:1px solid var(--txt-lo)}
+.tagrow{display:flex;gap:7px;flex-wrap:wrap}
+.tchip{font-family:var(--f-m);font-size:11px;letter-spacing:.04em;padding:8px 13px;border:1px solid var(--line);background:transparent;cursor:pointer;color:var(--txt-lo);transition:.15s}
+.tchip:hover{color:var(--ink);border-color:var(--line-2)}
+.tchip[aria-pressed=true]{color:#fff;background:var(--red);border-color:var(--red)}
+.fb-div{width:1px;align-self:stretch;background:var(--line);margin:0 4px}
+@media(max-width:720px){.filterbar{position:static}.fb-div{display:none}.fb-row{gap:12px}}
+
+/* featured */
+.feat{padding:clamp(44px,5vw,72px) 0 0}
+.feat a{display:grid;grid-template-columns:1.1fr 1fr;border:1px solid var(--line);transition:.18s}
+.feat a:hover{border-color:var(--ink)}
+.feat .img{background:linear-gradient(150deg,#1a1f24,#0c1013);min-height:340px;position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;color:var(--night-lo)}
+.feat .img::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 75% 10%,rgba(225,37,27,.2),transparent 55%)}
+.feat .body{padding:clamp(28px,3.4vw,48px);display:flex;flex-direction:column;justify-content:center}
+.feat .pmeta{display:flex;align-items:center;gap:10px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-lo);margin-bottom:20px}
+.feat .who{color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+.feat h2{font-size:clamp(24px,2.8vw,40px);letter-spacing:-.03em;line-height:1.08}
+.feat .dek{margin-top:18px;font-size:15.5px;color:var(--txt);max-width:52ch}
+.feat .rd{margin-top:26px;font-family:var(--f-m);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+@media(max-width:840px){.feat a{grid-template-columns:1fr}.feat .img{min-height:200px}}
+
+/* grid */
+.list{padding:clamp(36px,4vw,56px) 0 clamp(60px,7vw,100px)}
+.count-line{font-family:var(--f-m);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt-lo);margin-bottom:26px}
+.count-line b{color:var(--ink)}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.post{border:1px solid var(--line);background:var(--white);padding:28px;display:flex;flex-direction:column;min-height:290px;transition:.18s}
+.post:hover{border-color:var(--ink);transform:translateY(-2px)}
+.post .pmeta{display:flex;align-items:center;gap:9px;font-family:var(--f-m);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-lo);flex-wrap:wrap}
+.post .who{color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+.post h3{margin:18px 0 14px;font-size:19px;letter-spacing:-.02em;line-height:1.2}
+.post .ex{font-size:14px;color:var(--txt);line-height:1.55;margin-bottom:auto}
+.post .rd{margin-top:22px;font-family:var(--f-m);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+.post.hide{display:none}
+.empty{display:none;padding:60px 0;text-align:center;font-family:var(--f-m);font-size:13px;letter-spacing:.05em;color:var(--txt-lo);text-transform:uppercase}
+@media(max-width:980px){.posts{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.posts{grid-template-columns:1fr}}
+
+/* pagination */
+.pag{display:flex;gap:8px;justify-content:center;margin-top:48px}
+.pag a{width:44px;height:44px;border:1px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-family:var(--f-m);font-size:13px;color:var(--txt);transition:.15s}
+.pag a:hover{border-color:var(--ink)}
+.pag a.on{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+/* lead magnet */
+.lead-cta{background:var(--night);color:#fff;padding:clamp(48px,6vw,88px) 0}
+.lead-cta .in{display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(30px,4vw,64px);align-items:center}
+.lead-cta .tag{color:var(--red)}
+.lead-cta h2{color:#fff;font-size:clamp(26px,3.4vw,46px);letter-spacing:-.035em;margin-top:16px;line-height:1.02}
+.lead-cta p{color:var(--night-txt);margin-top:18px;max-width:46ch}
+.mag{border:1px solid var(--night-line);padding:28px}
+.mag .k{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--night-lo)}
+.mag b{font-family:var(--f-d);font-weight:800;font-size:20px;letter-spacing:-.02em;display:block;margin:12px 0 20px}
+.mag input{width:100%;padding:14px 15px;background:#0E1216;border:1px solid var(--night-line);color:#fff;font-family:var(--f-b);font-size:15px;margin-bottom:12px}
+.mag input::placeholder{color:var(--night-lo)}
+.mag input:focus{outline:none;border-color:var(--red)}
+@media(max-width:840px){.lead-cta .in{grid-template-columns:1fr}}
+
+.totop{position:fixed;right:22px;bottom:22px;z-index:85;width:48px;height:48px;background:var(--ink);color:#fff;border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;font-size:19px;line-height:1}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{background:var(--red);border-color:var(--red)}
+@media(max-width:520px){.totop{right:16px;bottom:16px;width:44px;height:44px}}
+
+/* footer */
+footer{background:var(--white);border-top:1px solid var(--line);padding:56px 0 32px}
+.ft{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+.ft h4{font-family:var(--f-m);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--txt-lo);font-weight:500;margin-bottom:18px}
+.ft ul{list-style:none;display:flex;flex-direction:column;gap:11px}
+.ft a{font-size:14px;color:var(--txt)}.ft a:hover{color:var(--red)}
+.fb2{margin-top:50px;padding-top:23px;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--f-m);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--txt-lo)}
+@media(max-width:860px){.ft{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="#" class="logo"><span class="sq"></span>BLACK PATTERN</a>
+    <nav><ul class="nav-links">
+      <li><a href="#">Marketing OS</a></li>
+      <li><a href="#">Кому</a></li>
+      <li><a href="#">Цена</a></li>
+      <li><a href="#" class="on">Журнал</a></li>
+      <li><a href="#">Эксперты</a></li>
+    </ul></nav>
+    <div class="nav-r"><a href="#" class="btn btn-red" style="padding:12px 20px">Обсудить задачу</a><button class="burger" aria-label="Меню">≡</button></div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="bhero">
+  <div class="wrap">
+    <span class="tag">Журнал Black Pattern</span>
+    <h1>Журнал о том, как построить управляемый маркетинг</h1>
+    <p>Разборы по одной теме — устройство отдела маркетинга, найм и метрики. Под собственника, HR-директора и директора по маркетингу.</p>
+    <div class="meta"><span><b>3</b> роли читателя</span><span><b>6</b> тематических рубрик</span><span>Обновляется <b>еженедельно</b></span></div>
+  </div>
+</section>
+
+<!-- РАЗВОДЯЩАЯ: фильтр по ролям + тегам -->
+<div class="filterbar">
+  <div class="wrap">
+    <div class="fb-row">
+      <span class="fb-lab">Роль</span>
+      <div class="roles">
+        <button class="chip" data-role="all" aria-pressed="true">Все</button>
+        <button class="chip" data-role="own" aria-pressed="false"><span class="dot own"></span>Собственнику</button>
+        <button class="chip" data-role="hr" aria-pressed="false"><span class="dot hr"></span>HR-директору</button>
+        <button class="chip" data-role="cmo" aria-pressed="false"><span class="dot cmo"></span>Директору по маркетингу</button>
+      </div>
+      <div class="fb-div"></div>
+      <span class="fb-lab">Тема</span>
+      <div class="tagrow">
+        <button class="tchip" data-tag="all" aria-pressed="true">Все темы</button>
+        <button class="tchip" data-tag="naim" aria-pressed="false">Найм</button>
+        <button class="tchip" data-tag="org" aria-pressed="false">Оргструктура</button>
+        <button class="tchip" data-tag="metric" aria-pressed="false">Метрики</button>
+        <button class="tchip" data-tag="econ" aria-pressed="false">Экономика</button>
+        <button class="tchip" data-tag="control" aria-pressed="false">Контроль</button>
+        <button class="tchip" data-tag="interview" aria-pressed="false">Интервью</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<section class="feat">
+  <div class="wrap">
+    <a href="article.html" data-role="own" data-tags="econ">
+      <div class="img">ОБЛОЖКА 4:3 · ЧБ-ФОТО</div>
+      <div class="body">
+        <div class="pmeta"><span class="who"><span class="dot own"></span>Собственнику</span> · Экономика найма · 7 мин</div>
+        <h2>Сколько на самом деле стоит неудачный найм директора по маркетингу</h2>
+        <p class="dek">Считаем только прямые расходы — без упущенной выручки. Оказывается, один цикл «нанял → не понял → уволил» обходится компании в 8,6 млн ₽. Разбираем, из чего складывается эта сумма и почему она повторяется.</p>
+        <span class="rd">Читать разбор →</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- LIST -->
+<section class="list">
+  <div class="wrap">
+    <div class="count-line"><b id="cnt">9</b> материалов</div>
+    <div class="posts" id="posts">
+      <a class="post" href="article.html" data-role="own" data-tags="econ">
+        <div class="pmeta"><span class="who"><span class="dot own"></span>Собственнику</span> · Экономика</div>
+        <h3>Сколько на самом деле стоит неудачный найм маркетолога</h3>
+        <p class="ex">8,6 млн ₽ за цикл в прямых расходах. Раскладываем сумму по статьям и показываем, почему её платят по два-три раза.</p>
+        <span class="rd">Читать · 7 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="own" data-tags="econ">
+        <div class="pmeta"><span class="who"><span class="dot own"></span>Собственнику</span> · Решение</div>
+        <h3>Маркетолог в штат или на аутсорс: как считать, а не гадать</h3>
+        <p class="ex">Простая модель, которая показывает, какие роли выгодно держать внутри, а какие выводить наружу без потери контроля.</p>
+        <span class="rd">Читать · 6 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="own" data-tags="control">
+        <div class="pmeta"><span class="who"><span class="dot own"></span>Собственнику</span> · Контроль</div>
+        <h3>Как проверить работу маркетолога, если вы не маркетолог</h3>
+        <p class="ex">Пять вопросов, по ответам на которые видно, управляем ли маркетинг — даже если вы не разбираетесь в его инструментах.</p>
+        <span class="rd">Читать · 8 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="hr" data-tags="naim">
+        <div class="pmeta"><span class="who"><span class="dot hr"></span>HR-директору</span> · Найм</div>
+        <h3>Как составить профиль должности маркетолога: шесть блоков</h3>
+        <p class="ex">Что должно быть в профиле, чтобы кандидатов можно было сравнивать по одной линейке, а не по впечатлению.</p>
+        <span class="rd">Читать · 9 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="hr" data-tags="interview">
+        <div class="pmeta"><span class="who"><span class="dot hr"></span>HR-директору</span> · Интервью</div>
+        <h3>12 вопросов для собеседования маркетолога и признаки сильного ответа</h3>
+        <p class="ex">Что спрашивать и что именно должно прозвучать, чтобы отличить сильного кандидата от красноречивого.</p>
+        <span class="rd">Читать · 10 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="hr" data-tags="naim">
+        <div class="pmeta"><span class="who"><span class="dot hr"></span>HR-директору</span> · Оценка</div>
+        <h3>Тестовое задание для маркетолога: как составить и как оценить</h3>
+        <p class="ex">Как сделать задание, по которому решение принимается объективно, а не «на глаз», и приложить к нему эталон.</p>
+        <span class="rd">Читать · 7 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="cmo" data-tags="org">
+        <div class="pmeta"><span class="who"><span class="dot cmo"></span>Директору по маркетингу</span> · Структура</div>
+        <h3>Пять ролей, которые нельзя совмещать в одном человеке</h3>
+        <p class="ex">Почему бренд, performance, аналитика, стратегия и продакшн — это пять разных профессий, а не один универсал.</p>
+        <span class="rd">Читать · 6 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="cmo" data-tags="metric">
+        <div class="pmeta"><span class="who"><span class="dot cmo"></span>Директору по маркетингу</span> · Метрики</div>
+        <h3>ЦКП маркетолога: как привязать должность к выручке компании</h3>
+        <p class="ex">Как сформулировать ценный конечный продукт так, чтобы по нему можно было однозначно сказать «сделано или нет».</p>
+        <span class="rd">Читать · 8 мин →</span>
+      </a>
+      <a class="post" href="article.html" data-role="cmo" data-tags="org">
+        <div class="pmeta"><span class="who"><span class="dot cmo"></span>Директору по маркетингу</span> · Оргдизайн</div>
+        <h3>Оргструктура отдела маркетинга под торговую компанию</h3>
+        <p class="ex">Готовая схема ролей для ритейла и e-commerce: что держать в штате, что выводить в контур аутстаффа.</p>
+        <span class="rd">Читать · 9 мин →</span>
+      </a>
+    </div>
+    <div class="empty" id="empty">По этому фильтру пока нет материалов — снимите один из тегов.</div>
+    <div class="pag">
+      <a href="#" class="on">1</a><a href="#">2</a><a href="#">3</a><a href="#">→</a>
+    </div>
+  </div>
+</section>
+
+<!-- LEAD MAGNET -->
+<section class="lead-cta">
+  <div class="wrap in" style="display:grid">
+    <div class="in" style="display:grid;grid-template-columns:1.2fr .8fr;gap:clamp(30px,4vw,64px);align-items:center">
+      <div>
+        <span class="tag">Материал для HR-директора</span>
+        <h2>Шаблон профиля должности маркетолога</h2>
+        <p>Шесть обязательных блоков, стоп-факторы и балльная шкала оценки — тот самый инструмент из модуля найма Marketing OS. Пришлём на почту.</p>
+      </div>
+      <div class="mag">
+        <span class="k">Скачать материал</span>
+        <b>PDF · 6 страниц</b>
+        <form onsubmit="event.preventDefault();window.location.href='thanks.html';">
+          <input type="text" placeholder="Ваша роль (например, HR-директор)">
+          <input type="email" placeholder="Рабочая почта" required>
+          <button class="btn btn-red" style="width:100%;justify-content:center">Получить шаблон</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="ft">
+      <div>
+        <a href="#" class="logo" style="font-size:15px"><span class="sq"></span>BLACK PATTERN</a>
+        <p style="font-size:13.5px;margin-top:16px;max-width:34ch;color:var(--txt)">Строим управляемые отделы маркетинга внутри компаний.</p>
+      </div>
+      <div><h4>Журнал</h4><ul><li><a href="#">Собственнику</a></li><li><a href="#">HR-директору</a></li><li><a href="#">Директору по маркетингу</a></li></ul></div>
+      <div><h4>Marketing OS</h4><ul><li><a href="#">Что входит</a></li><li><a href="#">Стоимость</a></li><li><a href="#">Обсудить задачу</a></li></ul></div>
+      <div><h4>Контакты</h4><ul><li><a href="tel:+74951919820">+7 (495) 191-98-20</a></li><li><a href="mailto:hello@whitepattern.ru">hello@whitepattern.ru</a></li><li><a href="#">Telegram</a></li></ul></div>
+    </div>
+    <div class="fb2"><span>© BLACK PATTERN, 2026</span><span>Политика конфиденциальности</span></div>
+  </div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Наверх">↑</button>
+
+<script>
+(function(){var b=document.getElementById('totop');if(!b)return;
+  window.addEventListener('scroll',function(){b.classList.toggle('show',window.scrollY>640);},{passive:true});
+  b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
+var roleChips=document.querySelectorAll('.chip[data-role]');
+var tagChips=document.querySelectorAll('.tchip[data-tag]');
+var posts=document.querySelectorAll('#posts .post');
+var state={role:'all',tag:'all'};
+function apply(){
+  var shown=0;
+  posts.forEach(function(p){
+    var okR = state.role==='all' || p.dataset.role===state.role;
+    var okT = state.tag==='all' || (p.dataset.tags||'').split(' ').indexOf(state.tag)>-1;
+    var vis=okR&&okT; p.classList.toggle('hide',!vis); if(vis)shown++;
+  });
+  document.getElementById('cnt').textContent=shown;
+  document.getElementById('empty').style.display=shown?'none':'block';
+}
+roleChips.forEach(function(c){c.addEventListener('click',function(){
+  roleChips.forEach(function(x){x.setAttribute('aria-pressed','false');});
+  c.setAttribute('aria-pressed','true');state.role=c.dataset.role;apply();
+});});
+tagChips.forEach(function(c){c.addEventListener('click',function(){
+  tagChips.forEach(function(x){x.setAttribute('aria-pressed','false');});
+  c.setAttribute('aria-pressed','true');state.tag=c.dataset.tag;apply();
+});});
+</script>
+</body>
+</html>

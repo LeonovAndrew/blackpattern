@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Заявка принята | Black Pattern</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--off:#F5F4F1;--ink:#0A0B0C;--txt:#565D63;--txt-lo:#8B9298;
+  --line:#E3E2DE;--line-2:#CDCCC7;--red:#E1251B;
+  --night:#06080B;--night-txt:#9AA3AB;--night-lo:#69727A;--night-line:#222A31;
+  --f-d:'Archivo',system-ui,sans-serif;--f-b:'IBM Plex Sans',system-ui,sans-serif;--f-m:'IBM Plex Mono',ui-monospace,monospace;
+  --pad:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{font-family:var(--f-b);background:var(--white);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100svh;display:flex;flex-direction:column}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 var(--pad);width:100%}
+.tag{font-family:var(--f-m);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-m);font-weight:500;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;padding:16px 26px;border:1px solid transparent;cursor:pointer;transition:.18s}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}.btn-red:hover{background:var(--ink);border-color:var(--ink)}
+.btn-out{background:transparent;color:var(--ink);border-color:var(--line-2)}.btn-out:hover{border-color:var(--ink)}
+
+header{border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:24px}
+.logo{font-family:var(--f-d);font-weight:900;font-size:15px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.logo .sq{width:10px;height:10px;background:var(--red);flex:none}
+.nav-links{display:flex;gap:26px;list-style:none;font-family:var(--f-m);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase}
+.nav-links a{color:var(--txt);transition:.15s}.nav-links a:hover{color:var(--red)}
+@media(max-width:820px){.nav-links{display:none}}
+
+main{flex:1;padding:clamp(52px,7vw,104px) 0}
+.check{width:56px;height:56px;background:var(--red);display:flex;align-items:center;justify-content:center;margin-bottom:26px}
+.check svg{width:26px;height:26px;stroke:#fff;stroke-width:2.4;fill:none}
+h1{font-family:var(--f-d);font-weight:900;font-size:clamp(34px,5vw,68px);letter-spacing:-.04em;line-height:1;text-transform:uppercase;margin-top:16px}
+.sub{margin-top:24px;max-width:56ch;font-size:clamp(16px,1.3vw,19px);color:var(--txt);line-height:1.6}
+
+.steps{margin-top:clamp(44px,5vw,68px);border-top:1px solid var(--line-2);border-left:1px solid var(--line);display:grid;grid-template-columns:repeat(3,1fr)}
+.step{padding:clamp(24px,2.6vw,34px);border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.step .n{font-family:var(--f-m);font-size:11px;letter-spacing:.14em;color:var(--red)}
+.step b{display:block;font-family:var(--f-d);font-weight:800;font-size:19px;letter-spacing:-.02em;margin:12px 0 9px}
+.step p{font-size:14px;color:var(--txt)}
+@media(max-width:820px){.steps{grid-template-columns:1fr;border-right:1px solid var(--line)}}
+
+.wait{margin-top:clamp(44px,5vw,64px)}
+.wait .lab{font-family:var(--f-m);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-lo);margin-bottom:18px;display:block}
+.wg{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.wc{border:1px solid var(--line);padding:24px;transition:.18s;display:flex;flex-direction:column;min-height:150px}
+.wc:hover{border-color:var(--ink);transform:translateY(-2px)}
+.wc .k{font-family:var(--f-m);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.wc b{font-family:var(--f-d);font-weight:700;font-size:16.5px;letter-spacing:-.015em;margin:12px 0 auto;line-height:1.25}
+.wc .rd{margin-top:16px;font-family:var(--f-m);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-lo)}
+@media(max-width:820px){.wg{grid-template-columns:1fr}}
+
+.tail{margin-top:clamp(44px,5vw,64px);display:flex;align-items:center;gap:22px;flex-wrap:wrap;padding-top:26px;border-top:1px solid var(--line)}
+.tail .contacts{font-family:var(--f-m);font-size:12.5px;letter-spacing:.03em;color:var(--txt);display:flex;gap:20px;flex-wrap:wrap}
+.tail .contacts a:hover{color:var(--red)}
+
+footer{background:var(--white);border-top:1px solid var(--line);padding:32px 0}
+.fb{display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--f-m);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--txt-lo)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a href="black-pattern-marketing-os.html" class="logo"><span class="sq"></span>BLACK PATTERN</a>
+    <nav><ul class="nav-links">
+      <li><a href="black-pattern-marketing-os.html">Marketing OS</a></li>
+      <li><a href="black-pattern-marketing-os.html#price">Цена</a></li>
+      <li><a href="blog.html">Журнал</a></li>
+      <li><a href="black-pattern-marketing-os.html#experts">Эксперты</a></li>
+    </ul></nav>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="check"><svg viewBox="0 0 24 24"><polyline points="4 12.5 10 18 20 6"/></svg></div>
+    <span class="tag">Заявка принята</span>
+    <h1>Готово. Дальше — за нами.</h1>
+    <p class="sub">Эксперт, который проведёт разбор, свяжется с вами по указанному телефону, чтобы согласовать удобное время. Обычно — в течение рабочего дня.</p>
+
+    <div class="steps">
+      <div class="step"><span class="n">ШАГ 1</span><b>Звонок и согласование</b><p>Свяжемся по телефону и подберём удобное время. Звонит эксперт, а не продавец.</p></div>
+      <div class="step"><span class="n">ШАГ 2</span><b>Разбор, 90 минут</b><p>Покажем контур вашей оргструктуры и посчитаем стоимость текущего найма в деньгах.</p></div>
+      <div class="step"><span class="n">ШАГ 3</span><b>Решение за вами</b><p>Честно скажем, подходит ли вам Marketing OS. Если нет — так и скажем, без уговоров.</p></div>
+    </div>
+
+    <div class="wait">
+      <span class="lab">Пока ждёте звонка</span>
+      <div class="wg">
+        <a class="wc" href="blog.html">
+          <span class="k">Шаблон · HR</span>
+          <b>Профиль должности маркетолога — забрать шаблон</b>
+          <span class="rd">Скачать →</span>
+        </a>
+        <a class="wc" href="article.html">
+          <span class="k">Журнал · Собственнику</span>
+          <b>Сколько стоит неудачный найм директора по маркетингу</b>
+          <span class="rd">Читать · 7 мин →</span>
+        </a>
+        <a class="wc" href="black-pattern-marketing-os.html#product">
+          <span class="k">Продукт</span>
+          <b>Что входит в Marketing OS: четыре модуля</b>
+          <span class="rd">Посмотреть →</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="tail">
+      <a href="black-pattern-marketing-os.html" class="btn btn-out">На главную</a>
+      <div class="contacts">
+        <span>Удобнее самому?</span>
+        <a href="tel:+74951919820">+7 (495) 191-98-20</a>
+        <a href="#">Telegram</a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap fb"><span>© BLACK PATTERN, 2026</span><span>Заявка принята</span></div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Сколько стоит неудачный найм директора по маркетингу | Журнал Black Pattern</title>
+<meta name="description" content="Разбор для собственника: один цикл неудачного найма директора по маркетингу обходится в 8,6 млн ₽ прямых расходов. Из чего складывается сумма и почему повторяется.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;--off:#F5F4F1;--ink:#0A0B0C;--txt:#3F454A;--txt-2:#565D63;--txt-lo:#8B9298;
+  --line:#E3E2DE;--line-2:#CDCCC7;--night:#06080B;--night-txt:#9AA3AB;--night-lo:#69727A;--night-line:#222A31;
+  --red:#E1251B;
+  --f-d:'Archivo',system-ui,sans-serif;--f-b:'IBM Plex Sans',system-ui,sans-serif;--f-m:'IBM Plex Mono',ui-monospace,monospace;
+  --pad:26px;
+}
+*{box-sizing:border-box;margin:0;padding:0;border-radius:0}
+html{scroll-behavior:smooth}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+body{font-family:var(--f-b);background:var(--white);color:var(--ink);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+h1,h2,h3,h4{font-family:var(--f-d);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.tag{font-family:var(--f-m);font-size:10.5px;font-weight:500;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+.dot{width:8px;height:8px;flex:none;display:inline-block}.dot.own{background:var(--ink)}
+
+.prog{position:fixed;top:0;left:0;height:2px;background:var(--red);width:0;z-index:200}
+
+header{position:sticky;top:0;z-index:90;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:70px;gap:24px;max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+.logo{font-family:var(--f-d);font-weight:900;font-size:15px;letter-spacing:.02em;text-transform:uppercase;display:flex;align-items:center;gap:9px}
+.logo .sq{width:10px;height:10px;background:var(--red);flex:none}
+.nav-links{display:flex;gap:26px;list-style:none;font-family:var(--f-m);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase}
+.nav-links a{color:var(--txt-2)}.nav-links a:hover,.nav-links a.on{color:var(--red)}
+.btn{display:inline-flex;align-items:center;gap:10px;font-family:var(--f-m);font-weight:500;font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;padding:15px 24px;border:1px solid transparent;cursor:pointer;transition:.18s}
+.btn-red{background:var(--red);color:#fff;border-color:var(--red)}.btn-red:hover{background:var(--ink);border-color:var(--ink)}
+.btn-inv{background:#fff;color:var(--ink);border-color:#fff}.btn-inv:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-out{background:transparent;color:var(--ink);border-color:var(--line-2)}.btn-out:hover{border-color:var(--ink)}
+.burger{display:none;background:none;border:1px solid var(--line-2);width:44px;height:40px;cursor:pointer;font-size:17px}
+@media(max-width:1000px){.nav-links{display:none}.burger{display:block}}
+@media(max-width:520px){.nav .btn{display:none}}
+
+/* article header */
+.arthead{border-bottom:1px solid var(--line);padding:clamp(32px,4vw,52px) 0 0}
+.crumb{font-family:var(--f-m);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-lo);display:flex;gap:9px;align-items:center}
+.crumb a:hover{color:var(--red)}
+.arttags{display:flex;gap:9px;align-items:center;margin:26px 0 0;font-family:var(--f-m);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--txt-lo);flex-wrap:wrap}
+.arttags .who{color:var(--ink);display:inline-flex;align-items:center;gap:7px}
+.arttags .tg{border:1px solid var(--line-2);padding:5px 10px;color:var(--txt-2)}
+.artwrap{max-width:760px;margin:0 auto}
+.arth1{font-size:clamp(30px,4.6vw,60px);letter-spacing:-.04em;line-height:1.02;margin:22px 0 0}
+.dek{font-size:clamp(17px,1.6vw,21px);color:var(--txt-2);line-height:1.5;margin-top:24px;font-weight:500}
+.byline{display:flex;align-items:center;gap:14px;margin:30px 0 clamp(32px,4vw,48px);padding-top:24px;border-top:1px solid var(--line)}
+.ava{width:44px;height:44px;background:linear-gradient(150deg,#1a1f24,#0c1013);flex:none}
+.byline .nm{font-family:var(--f-d);font-weight:700;font-size:15px;letter-spacing:-.01em}
+.byline .sub{font-family:var(--f-m);font-size:11px;letter-spacing:.04em;color:var(--txt-lo);text-transform:uppercase;margin-top:3px}
+.byline .rt{margin-left:auto;font-family:var(--f-m);font-size:11px;letter-spacing:.05em;color:var(--txt-lo);text-transform:uppercase}
+@media(max-width:600px){.byline .rt{display:none}}
+
+.cover{aspect-ratio:16/8;background:linear-gradient(150deg,#161b20,#0a0e12);position:relative;overflow:hidden;display:flex;align-items:flex-end;padding:22px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;color:var(--night-lo)}
+.cover::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 90% at 72% 8%,rgba(225,37,27,.22),transparent 55%)}
+
+/* article body */
+.body{padding:clamp(44px,5vw,72px) 0 clamp(56px,6vw,88px)}
+.body p{font-size:17.5px;line-height:1.72;color:var(--txt);margin:0 0 24px}
+.body .lead-p{font-size:19.5px;line-height:1.65;color:var(--ink)}
+.body h2{font-size:clamp(23px,2.6vw,32px);letter-spacing:-.03em;margin:48px 0 18px}
+.body h3{font-size:19px;letter-spacing:-.02em;margin:36px 0 14px}
+.body ul{list-style:none;margin:0 0 24px}
+.body ul li{font-size:17px;line-height:1.6;color:var(--txt);padding:10px 0 10px 26px;position:relative;border-bottom:1px solid var(--line)}
+.body ul li::before{content:"";position:absolute;left:0;top:19px;width:11px;height:1.5px;background:var(--red)}
+.body ul li b{color:var(--ink);font-weight:600}
+.body strong{color:var(--ink);font-weight:600}
+.pull{font-family:var(--f-d);font-weight:800;font-size:clamp(22px,2.8vw,34px);letter-spacing:-.03em;line-height:1.12;color:var(--ink);margin:44px 0;padding:6px 0 6px 28px;border-left:3px solid var(--red)}
+.pull em{font-style:normal;color:var(--red)}
+
+/* inline figure (explained numbers) */
+figure{margin:40px 0;border:1px solid var(--line-2)}
+.fig-h{padding:16px 22px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:baseline;gap:14px;flex-wrap:wrap}
+.fig-h .k{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.fig-h .t{font-family:var(--f-d);font-weight:700;font-size:15px;letter-spacing:-.01em}
+.fig-b{padding:22px}
+.figrow{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.figrow:last-child{margin-bottom:0}
+.figrow .lbl{width:210px;flex:none;font-size:13.5px;color:var(--txt-2)}
+.figrow .track{flex:1;height:26px;background:var(--off);position:relative;overflow:hidden}
+.figrow .fill{height:100%;background:linear-gradient(90deg,#2C343B,#454e56);width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.figrow.sum .fill{background:linear-gradient(90deg,var(--red),#B4160E)}
+.in .figrow .fill{width:var(--w)}
+.figrow .num{width:118px;flex:none;text-align:right;font-family:var(--f-d);font-weight:700;font-size:16px;letter-spacing:-.02em}
+.figrow.sum .num{color:var(--red)}
+figcaption{padding:14px 22px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-lo);line-height:1.5}
+@media(max-width:600px){.figrow{flex-wrap:wrap;gap:8px}.figrow .lbl{width:100%}.figrow .num{width:auto}}
+
+/* callout */
+.call{background:var(--off);border-left:3px solid var(--ink);padding:24px 26px;margin:40px 0}
+.call .k{font-family:var(--f-m);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--txt-lo)}
+.call p{font-size:16px;margin:10px 0 0;color:var(--ink);line-height:1.6}
+
+/* inline CTA */
+.inlinecta{border:1px solid var(--ink);padding:clamp(24px,3vw,36px);margin:52px 0;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.inlinecta .l b{font-family:var(--f-d);font-weight:800;font-size:clamp(18px,2vw,24px);letter-spacing:-.025em;display:block}
+.inlinecta .l p{font-size:14px;color:var(--txt-2);margin-top:8px;max-width:46ch}
+
+/* author box */
+.author{max-width:760px;margin:0 auto;border:1px solid var(--line-2);padding:28px;display:flex;gap:20px;align-items:flex-start}
+.author .ava{width:64px;height:64px}
+.author .nm{font-family:var(--f-d);font-weight:800;font-size:18px;letter-spacing:-.02em}
+.author .rl{font-family:var(--f-m);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:6px 0 12px}
+.author p{font-size:14px;color:var(--txt-2);line-height:1.55}
+
+/* related */
+.related{background:var(--off);border-top:1px solid var(--line);padding:clamp(56px,6vw,88px) 0}
+.related h2{font-size:clamp(22px,2.6vw,32px);letter-spacing:-.03em;margin-bottom:32px}
+.rel-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.rc{background:var(--white);border:1px solid var(--line);padding:26px;display:flex;flex-direction:column;min-height:210px;transition:.18s}
+.rc:hover{border-color:var(--ink);transform:translateY(-2px)}
+.rc .pmeta{font-family:var(--f-m);font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--txt-lo);display:flex;align-items:center;gap:8px}
+.rc .who{color:var(--ink);display:inline-flex;align-items:center;gap:6px}
+.rc h3{margin:16px 0 auto;font-size:17.5px;letter-spacing:-.02em;line-height:1.2}
+.rc .rd{margin-top:18px;font-family:var(--f-m);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--red)}
+@media(max-width:900px){.rel-grid{grid-template-columns:1fr}}
+
+/* final cta */
+.final{background:var(--night);color:#fff;padding:clamp(56px,6vw,96px) 0;position:relative;overflow:hidden}
+.final::before{content:"";position:absolute;bottom:-30%;right:-8%;width:48vw;height:48vw;background:radial-gradient(circle,rgba(225,37,27,.16),transparent 62%)}
+.final .in{max-width:760px;margin:0 auto;position:relative}
+.final .tag{color:var(--red)}
+.final h2{color:#fff;font-size:clamp(28px,3.6vw,46px);letter-spacing:-.035em;margin-top:16px;line-height:1.04}
+.final p{color:var(--night-txt);margin-top:18px;font-size:16px;max-width:56ch}
+.final .btns{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap}
+
+footer{background:var(--white);border-top:1px solid var(--line);padding:52px 0 30px}
+.ft{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:30px;max-width:1180px;margin:0 auto;padding:0 var(--pad)}
+.ft h4{font-family:var(--f-m);font-size:10px;letter-spacing:.17em;text-transform:uppercase;color:var(--txt-lo);font-weight:500;margin-bottom:16px}
+.ft ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+.ft a{font-size:14px;color:var(--txt-2)}.ft a:hover{color:var(--red)}
+.fb2{max-width:1180px;margin:46px auto 0;padding:22px var(--pad) 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;font-family:var(--f-m);font-size:10.5px;letter-spacing:.11em;text-transform:uppercase;color:var(--txt-lo)}
+@media(max-width:700px){.ft{grid-template-columns:1fr 1fr}}
+
+.totop{position:fixed;right:22px;bottom:22px;z-index:85;width:48px;height:48px;background:var(--ink);color:#fff;border:1px solid var(--ink);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:0;transform:translateY(10px);pointer-events:none;transition:.25s;font-size:19px;line-height:1}
+.totop.show{opacity:1;transform:none;pointer-events:auto}
+.totop:hover{background:var(--red);border-color:var(--red)}
+@media(max-width:520px){.totop{right:16px;bottom:16px;width:44px;height:44px}}
+
+.rv{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none}.figrow .fill{transition:none}}
+</style>
+</head>
+<body>
+<div class="prog" id="prog"></div>
+
+<header>
+  <div class="nav">
+    <a href="blog.html" class="logo"><span class="sq"></span>BLACK PATTERN</a>
+    <nav><ul class="nav-links">
+      <li><a href="#">Marketing OS</a></li><li><a href="#">Кому</a></li><li><a href="#">Цена</a></li>
+      <li><a href="blog.html" class="on">Журнал</a></li><li><a href="#">Эксперты</a></li>
+    </ul></nav>
+    <div class="nav-r"><a href="#cta" class="btn btn-red" style="padding:12px 20px">Обсудить задачу</a><button class="burger" aria-label="Меню">≡</button></div>
+  </div>
+</header>
+
+<!-- ARTICLE HEADER -->
+<div class="arthead">
+  <div class="wrap artwrap">
+    <div class="crumb"><a href="blog.html">Журнал</a> <span>/</span> <a href="blog.html">Собственнику</a> <span>/</span> Экономика найма</div>
+    <div class="arttags">
+      <span class="who"><span class="dot own"></span>Собственнику</span>
+      <span class="tg">Экономика</span><span class="tg">Найм</span>
+    </div>
+    <h1 class="arth1">Сколько на самом деле стоит неудачный найм директора по маркетингу</h1>
+    <p class="dek">Если вы владелец торговой компании и уже меняли маркетолога не раз — этот счёт для вас. Считаем только прямые расходы, без упущенной выручки. Выходит 8,6 млн ₽ за цикл.</p>
+    <div class="byline">
+      <div class="ava"></div>
+      <div>
+        <div class="nm">Дмитрий Майер</div>
+        <div class="sub">Founder &amp; CEO, Black Pattern</div>
+      </div>
+      <div class="rt">12 июля 2026 · 7 мин</div>
+    </div>
+  </div>
+  <div class="wrap"><div class="cover">ОБЛОЖКА 16:8 · ЧБ-ФОТО + КРАСНЫЙ АКЦЕНТ</div></div>
+</div>
+
+<!-- BODY -->
+<article class="body">
+  <div class="wrap artwrap">
+    <p class="lead-p">Вы наняли директора по маркетингу. Через восемь месяцев расстались. Взяли следующего — и всё повторилось. Знакомо? Прежде чем искать третьего, давайте посчитаем, во сколько вам обошёлся уже пройденный круг. Не в ощущениях, а в рублях.</p>
+
+    <p>Сразу договоримся о методе. Я считаю <strong>только прямые, наблюдаемые расходы</strong> — то, что уже ушло со счёта. Упущенную выручку, недополученную долю рынка и стоимость вашего личного времени я в расчёт не беру, хотя они реальны. Это делает оценку заведомо консервативной: настоящий счёт выше. Ставку директора по маркетингу возьмём 600 000 ₽ в месяц — это полная стоимость сотрудника с налогами и взносами для торговой компании вашего масштаба.</p>
+
+    <h2>Из чего складывается один цикл</h2>
+    <p>Неудачный найм — это не одна строка расходов, а три. Вот они, для типичной ситуации, где решение о расставании принимается на девятом месяце.</p>
+
+    <figure class="rv">
+      <div class="fig-h"><span class="k">Прямые потери за цикл</span><span class="t">Ставка 600 000 ₽/мес · 9 месяцев</span></div>
+      <div class="fig-b">
+        <div class="figrow"><span class="lbl">Оплата труда за 9 месяцев</span><div class="track"><div class="fill" style="--w:63%"></div></div><span class="num">5,4 млн ₽</span></div>
+        <div class="figrow"><span class="lbl">Рекламный бюджет на гипотезы</span><div class="track"><div class="fill" style="--w:28%"></div></div><span class="num">2,4 млн ₽</span></div>
+        <div class="figrow"><span class="lbl">Подбор замены и простой</span><div class="track"><div class="fill" style="--w:9%"></div></div><span class="num">0,8 млн ₽</span></div>
+        <div class="figrow sum"><span class="lbl">Итого за один цикл</span><div class="track"><div class="fill" style="--w:100%"></div></div><span class="num">8,6 млн ₽</span></div>
+      </div>
+      <figcaption>Каждая сумма объяснена ниже. Цифры приведены для сценария 9 месяцев при ставке 600 000 ₽/мес; подставьте свои — порядок величины не изменится.</figcaption>
+    </figure>
+
+    <h3>5,4 млн ₽ — оплата труда</h3>
+    <p>Девять месяцев по 600 000 ₽ — это <strong>5,4 млн ₽</strong>, которые вы заплатили за работу, не давшую измеримого результата. Здесь нет злого умысла: человек что-то делал, запускал кампании, писал отчёты. Проблема в том, что оценить эту работу было не по чему — критериев результата никто не сформулировал на входе.</p>
+
+    <h3>2,4 млн ₽ — бюджет на непроверенные гипотезы</h3>
+    <p>Это та часть рекламного бюджета, что уходила на проверку идей <strong>без методологии проверки</strong> — то есть без ответа на вопрос «сработало или нет». Условно 267 000 ₽ в месяц, которые нельзя ни защитить, ни повторить, потому что непонятно, что именно из них дало эффект. За девять месяцев набегает <strong>2,4 млн ₽</strong>.</p>
+
+    <h3>0,8 млн ₽ — подбор замены и простой</h3>
+    <p>После расставания маркетинг не продолжается сам собой. Три-четыре месяца уходит на поиск замены, и всё это время функция стоит. Мы оцениваем это примерно в <strong>1,33 оклада</strong> — около <strong>0,8 млн ₽</strong> прямых потерь на паузу и подбор.</p>
+
+    <div class="pull">Ошибка не в человеке. Ошибка — <em>в устройстве роли</em>, в которую вы его нанимаете.</div>
+
+    <h2>Почему это повторяется по два-три раза</h2>
+    <p>Самое дорогое в этой истории — не первый цикл, а то, что он воспроизводится. Собственник меняет фамилию в трудовой книжке, но не меняет саму роль. А роль устроена невыполнимо: рынок ждёт, что один директор по маркетингу одновременно закроет пять разных профессий — бренд, performance, аналитику, стратегию и продакшн. Человека, одинаково сильного во всех пяти, статистически не существует.</p>
+
+    <p>Поэтому следующий кандидат проходит ту же траекторию, и счёт умножается:</p>
+    <ul>
+      <li><b>Один цикл</b> — 8,6 млн ₽</li>
+      <li><b>Два цикла</b> — 17,2 млн ₽</li>
+      <li><b>Три цикла</b> — 25,8 млн ₽</li>
+    </ul>
+
+    <div class="call">
+      <span class="k">Что здесь важно понять</span>
+      <p>Вы платите не за плохих людей. Вы платите за то, что должность не описана: нет ценного конечного продукта, нет метрик, нет профиля для найма. Пока это так, любой нанятый человек — лотерейный билет.</p>
+    </div>
+
+    <h2>Что с этим делать собственнику</h2>
+    <p>Если вы дочитали до сюда, вы уже сделали главное — перестали искать «правильного человека» и начали смотреть на систему. Дальше практический минимум, который можно применить у себя уже на этой неделе:</p>
+    <ul>
+      <li><b>Опишите результат должности в деньгах.</b> Не «эффективное ведение кампаний», а «поток квалифицированных обращений заданного объёма при стоимости не выше потолка». По такой формулировке видно «сделано или нет».</li>
+      <li><b>Разделите пять профессий.</b> Решите, что вам действительно нужно в штате, а что выгоднее вывести на аутстафф. Пять человек в штат не нужны почти никогда.</li>
+      <li><b>Дайте HR профиль, а не пожелание.</b> «Найди хорошего маркетолога» непроверяемо. Профиль с требованиями, стоп-факторами и шкалой оценки — проверяемо.</li>
+    </ul>
+
+    <div class="inlinecta">
+      <div class="l">
+        <b>Посчитать ваш цикл на диагностике</b>
+        <p>За 90 минут покажем контур оргструктуры под ваш бизнес и оценим стоимость вашего текущего найма в деньгах. До контракта, без обязательств.</p>
+      </div>
+      <a href="#cta" class="btn btn-red">Записаться →</a>
+    </div>
+
+    <p>Неудачный найм — это не невезение с людьми, а следствие того, что должность спроектирована невыполнимо. Хорошая новость: систему можно описать один раз — и она перестанет стоить вам по 8,6 млн ₽ за попытку.</p>
+  </div>
+</article>
+
+<!-- AUTHOR -->
+<div class="wrap" style="padding-bottom:clamp(56px,6vw,88px)">
+  <div class="author">
+    <div class="ava"></div>
+    <div>
+      <div class="nm">Дмитрий Майер</div>
+      <div class="rl">Founder &amp; CEO, Black Pattern</div>
+      <p>Основатель маркетингового агентства, 9+ лет управления маркетинговой группой. Отвечает за архитектуру оргструктуры и экономику решения в Marketing OS.</p>
+    </div>
+  </div>
+</div>
+
+<!-- RELATED -->
+<section class="related">
+  <div class="wrap">
+    <h2>Читать дальше</h2>
+    <div class="rel-grid">
+      <a class="rc" href="#"><div class="pmeta"><span class="who"><span class="dot own"></span>Собственнику</span> · Решение</div><h3>Маркетолог в штат или на аутсорс: как считать, а не гадать</h3><span class="rd">Читать · 6 мин →</span></a>
+      <a class="rc" href="#"><div class="pmeta"><span class="who"><span class="dot own"></span>Собственнику</span> · Контроль</div><h3>Как проверить работу маркетолога, если вы не маркетолог</h3><span class="rd">Читать · 8 мин →</span></a>
+      <a class="rc" href="#"><div class="pmeta"><span class="who"><span class="dot own" style="background:var(--red)"></span>HR-директору</span> · Найм</div><h3>Как составить профиль должности маркетолога: шесть блоков</h3><span class="rd">Читать · 9 мин →</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section id="cta" class="final">
+  <div class="wrap">
+    <div class="in">
+      <span class="tag">Следующий шаг</span>
+      <h2>Диагностика — 90 минут</h2>
+      <p>Сессия на 90 минут, по итогам которой вы видите контур будущей оргструктуры маркетинга ещё до контракта — и понимаете, во сколько обходится ваш текущий найм.</p>
+      <div class="btns">
+        <a href="#" class="btn btn-red">Записаться на диагностику →</a>
+        <a href="blog.html" class="btn btn-out" style="color:#fff;border-color:var(--night-line)">Вернуться в журнал</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="ft">
+    <div>
+      <a href="#" class="logo" style="font-size:15px"><span class="sq"></span>BLACK PATTERN</a>
+      <p style="font-size:13.5px;margin-top:16px;max-width:34ch;color:var(--txt-2)">Строим управляемые отделы маркетинга внутри компаний.</p>
+    </div>
+    <div><h4>Журнал</h4><ul><li><a href="blog.html">Собственнику</a></li><li><a href="blog.html">HR-директору</a></li><li><a href="blog.html">Директору по маркетингу</a></li></ul></div>
+    <div><h4>Контакты</h4><ul><li><a href="tel:+74951919820">+7 (495) 191-98-20</a></li><li><a href="mailto:hello@whitepattern.ru">hello@whitepattern.ru</a></li></ul></div>
+  </div>
+  <div class="fb2"><span>© BLACK PATTERN, 2026</span><span>Политика конфиденциальности</span></div>
+</footer>
+
+<button class="totop" id="totop" aria-label="Наверх">↑</button>
+
+<script>
+(function(){var b=document.getElementById('totop');if(!b)return;
+  window.addEventListener('scroll',function(){b.classList.toggle('show',window.scrollY>640);},{passive:true});
+  b.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'});});})();
+var prog=document.getElementById('prog');
+document.addEventListener('scroll',function(){
+  var h=document.documentElement,max=h.scrollHeight-h.clientHeight;
+  prog.style.width=(max>0?(h.scrollTop/max*100):0)+'%';
+},{passive:true});
+var reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+if(!reduce&&'IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:.2});
+  document.querySelectorAll('.rv').forEach(function(el){io.observe(el);});
+}else{document.querySelectorAll('.rv').forEach(function(el){el.classList.add('in');});}
+</script>
+</body>
+</html>
