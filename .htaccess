@@ -4,6 +4,18 @@ ErrorDocument 404 /404.php
 <IfModule mod_rewrite.c>
 	Options +FollowSymLinks
 	RewriteEngine On
+
+	# Canonical public URL: HTTPS without www.
+	# Keep the local Open Server host "blackpattern" unaffected.
+	RewriteCond %{HTTP_HOST} ^www\.blackpattern\.ru(?::\d+)?$ [NC]
+	RewriteRule ^ https://blackpattern.ru%{REQUEST_URI} [R=301,L,NE]
+
+	# nginx may terminate TLS before forwarding the request to Apache.
+	RewriteCond %{HTTP_HOST} ^blackpattern\.ru(?::\d+)?$ [NC]
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP:X-Forwarded-Proto} !^https$ [NC]
+	RewriteRule ^ https://blackpattern.ru%{REQUEST_URI} [R=301,L,NE]
+
 	RewriteCond %{REQUEST_FILENAME} !-f
 	RewriteCond %{REQUEST_FILENAME} !-l
 	RewriteCond %{REQUEST_FILENAME} !-d
