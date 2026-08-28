@@ -9,5 +9,5 @@ if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) {
             <li><a href="<?= htmlspecialcharsbx($item['LINK']); ?>"<?= $item['SELECTED'] ? ' class="on"' : ''; ?>><?= htmlspecialcharsbx($item['TEXT']); ?></a></li>
         <?php endforeach; ?>
     </ul>
-    <a class="btn btn-red mobile-menu-cta" href="/#cta">Обсудить задачу</a>
+    <a class="btn btn-red mobile-menu-cta" href="/#cta" data-bp-modal-open="header-task-modal">Обсудить задачу</a>
 </nav>

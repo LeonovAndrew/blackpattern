@@ -26,7 +26,7 @@ if ($theme) { $GLOBALS['blackPatternJournalFilter']['PROPERTY_THEME'] = $themeOp
 $APPLICATION->RestartBuffer();
 ob_start();
 $APPLICATION->IncludeComponent('bitrix:news.list', 'journal', [
-    'IBLOCK_TYPE' => 'content', 'IBLOCK_ID' => $iblockId, 'NEWS_COUNT' => '3',
+    'IBLOCK_TYPE' => 'content', 'IBLOCK_ID' => $iblockId, 'NEWS_COUNT' => '10',
     'SORT_BY1' => 'PROPERTY_FEATURED', 'SORT_ORDER1' => 'DESC', 'SORT_BY2' => 'ACTIVE_FROM', 'SORT_ORDER2' => 'DESC',
     'FIELD_CODE' => ['ID', 'NAME', 'CODE', 'ACTIVE_FROM', 'PREVIEW_TEXT', 'DETAIL_TEXT', 'PREVIEW_PICTURE', 'DETAIL_PICTURE'],
     'PROPERTY_CODE' => ['ROLE', 'THEME', 'READING_TIME', 'AUTHORS', 'FEATURED', 'RELATED_ARTICLES'],

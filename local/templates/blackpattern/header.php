@@ -99,7 +99,7 @@ $asset->addCss(SITE_TEMPLATE_PATH . '/assets/css/forms.css');
         );
         ?>
         <div class="nav-r">
-            <a class="btn btn-red header-cta" href="<?= $isHomePage ? '#cta' : '/#cta'; ?>">Обсудить задачу</a>
+            <a class="btn btn-red header-cta" href="<?= $isHomePage ? '#cta' : '/#cta'; ?>" data-bp-modal-open="header-task-modal">Обсудить задачу</a>
             <button class="burger" type="button" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-navigation"><span class="burger-icon" aria-hidden="true"></span></button>
         </div>
     </div>

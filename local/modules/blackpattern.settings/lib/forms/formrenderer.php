@@ -32,11 +32,14 @@ final class FormRenderer
         $privacyUrl = $settings['PRIVACY_URL'] ?: '/privacy/';
         $captchaEnabled = YandexCaptcha::isEnabled($settings) && trim((string)$settings['YANDEX_CAPTCHA_CLIENT_KEY']) !== '';
         static $captchaScriptRendered = false;
+        static $formInstance = 0;
+        $formInstance++;
+        $fieldIdPrefix = 'bp-form-' . strtolower(preg_replace('/[^a-zA-Z0-9_-]/', '-', $formCode)) . '-' . $formInstance . '-';
 
         ob_start();
         ?>
-        <form class="<?= htmlspecialcharsbx($formClass); ?>" data-bp-form data-success-url="<?= htmlspecialcharsbx($successUrl); ?>" action="/local/ajax/form_submit.php" method="post" novalidate>
-            <input type="hidden" name="sessid" value="<?= htmlspecialcharsbx(bitrix_sessid()); ?>">
+        <form class="<?= htmlspecialcharsbx($formClass); ?>" data-bp-form data-sessid-url="/local/ajax/form_session.php" data-success-url="<?= htmlspecialcharsbx($successUrl); ?>" action="/local/ajax/form_submit.php" method="post" novalidate>
+            <input type="hidden" name="sessid" value="">
             <input type="hidden" name="form_code" value="<?= htmlspecialcharsbx($formCode); ?>">
             <?php foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'page_url', 'referrer'] as $trackingCode): ?>
                 <input type="hidden" name="tracking[<?= $trackingCode; ?>]" value="" data-bp-tracking="<?= $trackingCode; ?>">
@@ -44,7 +47,7 @@ final class FormRenderer
             <div class="bp-form-honeypot" aria-hidden="true"><label>Не заполняйте это поле<input type="text" name="website" value="" tabindex="-1" autocomplete="off"></label></div>
             <div class="bp-form-fields">
                 <?php foreach ($properties as $property): ?>
-                    <?= self::renderField($property, $formCode, $compact); ?>
+                    <?= self::renderField($property, $fieldIdPrefix, $compact); ?>
                 <?php endforeach; ?>
             </div>
             <label class="bp-form-consent"><input type="checkbox" name="privacy_consent" value="Y" required> <span>Я согласен с <a href="<?= htmlspecialcharsbx($privacyUrl); ?>" target="_blank" rel="noopener">политикой обработки персональных данных</a>.</span></label>
@@ -62,10 +65,10 @@ final class FormRenderer
         return (string)ob_get_clean();
     }
 
-    private static function renderField(array $property, string $formCode, bool $compact): string
+    private static function renderField(array $property, string $fieldIdPrefix, bool $compact): string
     {
         $code = $property['CODE'];
-        $id = 'bp-form-' . strtolower($formCode . '-' . $code);
+        $id = $fieldIdPrefix . strtolower($code);
         $required = $property['IS_REQUIRED'] === 'Y';
         $name = 'fields[' . $code . ']';
         $label = htmlspecialcharsbx($property['NAME']) . ($required ? ' <span aria-hidden="true">*</span>' : '');

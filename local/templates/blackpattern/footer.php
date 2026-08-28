@@ -16,7 +16,8 @@ $siteSettings = [
     'PRIVACY_URL' => '/privacy/',
     'LEGAL_NAME' => 'BLACK PATTERN',
 ];
-if (Loader::includeModule('blackpattern.settings')) {
+$settingsModuleLoaded = Loader::includeModule('blackpattern.settings');
+if ($settingsModuleLoaded) {
     $siteSettings = \BlackPattern\Settings\SiteSettings::get();
 }
 ?>
@@ -41,6 +42,21 @@ if (Loader::includeModule('blackpattern.settings')) {
         <div class="fb"><span>© <?= htmlspecialcharsbx($siteSettings['LEGAL_NAME']); ?>, <?= date('Y'); ?></span><a href="<?= htmlspecialcharsbx($siteSettings['PRIVACY_URL']); ?>">Политика конфиденциальности</a></div>
     </div>
 </footer>
+<dialog class="bp-modal" id="header-task-modal" data-bp-modal aria-labelledby="header-task-modal-title">
+    <div class="bp-modal-card">
+        <button class="bp-modal-close" type="button" data-bp-modal-close aria-label="Закрыть форму"><span aria-hidden="true"></span></button>
+        <h2 id="header-task-modal-title">Обсудить задачу</h2>
+        <?php if ($settingsModuleLoaded): ?>
+            <?= \BlackPattern\Forms\FormRenderer::render('callback_short', [
+                'SUBMIT_TEXT' => 'Обсудить задачу',
+                'CLASS' => 'bp-popup-form bp-form-compact',
+                'COMPACT' => 'Y',
+            ]); ?>
+        <?php else: ?>
+            <p class="bp-modal-fallback">Форма временно недоступна.</p>
+        <?php endif; ?>
+    </div>
+</dialog>
 <div class="cookie-notice" data-cookie-notice role="region" aria-label="Уведомление об использовании cookie" hidden>
     <p>Оставаясь на сайте, вы соглашаетесь с <a target="_blank" rel="noopener" href="/privacy/">нашей Политикой обработки персональных данных</a> и использованием cookie.</p>
     <button class="btn btn-red cookie-notice-button" type="button" data-cookie-notice-accept>Понятно</button>
