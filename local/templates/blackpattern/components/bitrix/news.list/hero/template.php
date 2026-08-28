@@ -10,7 +10,7 @@ if (!$item) {
 
 $this->AddEditAction($item['ID'], $item['EDIT_LINK'], CIBlock::GetArrayByID($item['IBLOCK_ID'], 'ELEMENT_EDIT'));
 $propertyValue = static function (string $code, string $default = '') use ($item): string {
-    $value = $item['PROPERTIES'][$code]['VALUE'] ?? '';
+    $value = $item['PROPERTIES'][$code]['~VALUE'] ?? '';
     return is_scalar($value) && (string)$value !== '' ? (string)$value : $default;
 };
 $filePath = static function (string $code) use ($item): string {
@@ -52,13 +52,13 @@ for ($number = 1; $number <= 4; $number++) {
         <div class="hero-grad"></div>
     </div>
     <div class="hero-inner"><div class="wrap hero-top">
-        <span class="hero-kick"><?= htmlspecialcharsbx($propertyValue('KICKER', 'Построение отдела маркетинга под ключ')); ?></span>
+        <span class="hero-kick"><?= $propertyValue('KICKER', 'Построение отдела маркетинга под ключ'); ?></span>
         <h1>
             <span class="ln"><span><?= htmlspecialcharsbx($propertyValue('H1_LINE_1', 'Marketing OS.')); ?></span></span>
             <span class="ln"><span><?= htmlspecialcharsbx($propertyValue('H1_LINE_2', 'Операционная')); ?><?php if ($propertyValue('H1_ACCENT')): ?> <em><?= htmlspecialcharsbx($propertyValue('H1_ACCENT')); ?></em><?php endif; ?></span></span>
             <span class="ln"><span><?= htmlspecialcharsbx($propertyValue('H1_LINE_3', 'отдела маркетинга.')); ?></span></span>
         </h1>
-        <p class="hero-sub"><?= htmlspecialcharsbx($propertyValue('DESCRIPTION')); ?></p>
+        <p class="hero-sub"><?= $propertyValue('DESCRIPTION'); ?></p>
         <div class="hero-act">
             <a href="<?= htmlspecialcharsbx($safeUrl($propertyValue('PRIMARY_URL'), '#cta')); ?>" class="btn btn-red"><?= htmlspecialcharsbx($propertyValue('PRIMARY_TEXT', 'Записаться на диагностику →')); ?></a>
             <a href="<?= htmlspecialcharsbx($safeUrl($propertyValue('SECONDARY_URL'), '#calc')); ?>" class="btn btn-glass"><?= htmlspecialcharsbx($propertyValue('SECONDARY_TEXT', 'Посчитать ошибку найма')); ?></a>

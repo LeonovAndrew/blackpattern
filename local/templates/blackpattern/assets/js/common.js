@@ -182,6 +182,27 @@
         return {valid: true};
     };
 
+    var refreshFormSessid = function (form) {
+        var sessidField = form.querySelector('input[name="sessid"]');
+        if (!sessidField) {
+            return Promise.reject(new Error('Не удалось подготовить безопасную отправку формы.'));
+        }
+
+        return fetch(form.dataset.sessidUrl || '/local/ajax/form_session.php', {
+            method: 'GET',
+            credentials: 'same-origin',
+            cache: 'no-store',
+            headers: {'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}
+        }).then(function (response) {
+            return response.json().then(function (data) {
+                if (!response.ok || !data.success || !/^[a-f0-9]{32}$/i.test(data.sessid || '')) {
+                    throw new Error(data.message || 'Не удалось подготовить безопасную отправку формы.');
+                }
+                sessidField.value = data.sessid;
+            });
+        });
+    };
+
     document.querySelectorAll('[data-bp-form]').forEach(function (form) {
         if (form.dataset.bpBound === 'true') { return; }
         form.dataset.bpBound = 'true';
@@ -202,7 +223,10 @@
             submit.disabled = true;
             status.className = 'bp-form-status';
             status.textContent = 'Отправляем заявку…';
-            fetch(form.action, {method: 'POST', body: new FormData(form), credentials: 'same-origin'})
+            refreshFormSessid(form)
+                .then(function () {
+                    return fetch(form.action, {method: 'POST', body: new FormData(form), credentials: 'same-origin'});
+                })
                 .then(function (response) {
                     return response.json().then(function (data) {
                         if (!response.ok || !data.success) { throw new Error(data.message || 'Не удалось отправить заявку.'); }

@@ -27,7 +27,8 @@ require $_SERVER['DOCUMENT_ROOT'] . '/bitrix/header.php';
         <div class="error-content">
             <div class="error-code" aria-hidden="true">404</div>
             <span class="tag">Ошибка 404</span>
-            <h1>Эта страница — как маркетолог-универсал. <em>Её не существует.</em></h1>
+            <h1>Эта страница — как маркетолог-универсал.<br>
+                <em>Её не существует.</em></h1>
             <p class="error-sub">Ссылка устарела или адрес набран с опечаткой. Зато у нас есть то, что существует и работает.</p>
             <div class="error-actions">
                 <a href="/" class="btn btn-red">На главную →</a>
