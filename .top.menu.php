@@ -1,10 +1,46 @@
-<?php
-$aMenuLinks = [
-    ['Проблема', '/#problem', [], [], ''],
-    ['Расчёт', '/#calc', [], [], ''],
-    ['Продукт', '/#product', [], [], ''],
-    ['Кому', '/#audience', [], [], ''],
-    ['Цена', '/#price', [], [], ''],
-    ['Журнал', '/journal/', [], [], ''],
-    ['Эксперты', '/#experts', [], [], ''],
-];
+<?
+$aMenuLinks = Array(
+	Array(
+		"Расчёт", 
+		"/#calc", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Продукт", 
+		"/#product", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Кому", 
+		"/#audience", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Цена", 
+		"/#price", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Журнал", 
+		"/journal/", 
+		Array(), 
+		Array(), 
+		"" 
+	),
+	Array(
+		"Эксперты", 
+		"/#experts", 
+		Array(), 
+		Array(), 
+		"" 
+	)
+);
+?>

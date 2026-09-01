@@ -1,6 +1,13 @@
 br.mob{
     display: none;
 }
+.red{
+    color: var(--red-text);
+}
+.article-avatar{
+    width: 100px;
+    height: 100px;
+}
 @media (max-width: 760px) {
     br.desk{
         display: none;
@@ -9,4 +16,16 @@ br.mob{
         display: block;
     }
     .article-author .article-avatar{width:60px;height:60px}
+}
+@media (max-width: 560px) {
+    .tabs.rv.in {
+        border: none;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
+    .tabs.rv.in .tab{
+        border: 1px solid var(--line-2);
+        max-width: 360px;
+    }
 }

@@ -1,4 +1,4 @@
-<?php
+    <?php
 if (!defined('B_PROLOG_INCLUDED') || B_PROLOG_INCLUDED !== true) { die(); }
 $roleOptions = blackPatternJournalEnumOptions((int)$arParams['IBLOCK_ID'], 'ROLE');
 $themeOptions = blackPatternJournalEnumOptions((int)$arParams['IBLOCK_ID'], 'THEME');
