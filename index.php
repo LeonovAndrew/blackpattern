@@ -108,6 +108,10 @@ endif; ?>
     <?php $APPLICATION->IncludeFile('/local/include/home/calculator-copy.php', [], ['MODE' => 'html', 'NAME' => 'Вступление калькулятора']); ?>
     <div class="calc rv">
         <div>
+            <div class="calc-mobile-total">
+                <span>Итого за один цикл</span>
+                <output id="mobile-total" for="salary months budget">8 601 000 ₽</output>
+            </div>
             <div class="fld"><label for="salary">Оклад директора по маркетингу</label><span class="hint">Полная стоимость сотрудника в месяц, включая налоги и взносы.</span><div class="fld-r"><input type="range" id="salary" min="150000" max="1500000" step="10000" value="600000"><span class="val" id="salary-v">600 000 ₽</span></div></div>
             <div class="fld"><label for="months">Месяцев до расставания</label><span class="hint">По нашей практике решение об увольнении принимается на 6–9-м месяце.</span><div class="fld-r"><input type="range" id="months" min="3" max="18" step="1" value="9"><span class="val" id="months-v">9 мес.</span></div></div>
             <div class="fld"><label for="budget">Бюджет на непроверенные гипотезы</label><span class="hint">Часть рекламного бюджета в месяц, которая тратится без методологии проверки.</span><div class="fld-r"><input type="range" id="budget" min="0" max="1500000" step="1000" value="267000"><span class="val" id="budget-v">267 000 ₽</span></div></div>

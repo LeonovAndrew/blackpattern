@@ -115,9 +115,9 @@
             });
         });
     });
-    var salary = document.getElementById('salary'), months = document.getElementById('months'), budget = document.getElementById('budget');
+    var salary = document.getElementById('salary'), months = document.getElementById('months'), budget = document.getElementById('budget'), mobileTotal = document.getElementById('mobile-total');
     var format = function (number) { return new Intl.NumberFormat('ru-RU').format(Math.round(number)) + ' ₽'; };
-    var calculate = function () { if (!salary || !months || !budget) return; var s = +salary.value, m = +months.value, b = +budget.value, labour = s * m, hypotheses = b * m, replacement = s * 1.33, total = labour + hypotheses + replacement; document.getElementById('salary-v').textContent = format(s); document.getElementById('months-v').textContent = m + ' мес.'; document.getElementById('budget-v').textContent = format(b); document.getElementById('o1').textContent = format(labour); document.getElementById('o2').textContent = format(hypotheses); document.getElementById('o3').textContent = format(replacement); document.getElementById('total').textContent = format(total); document.getElementById('ratio').textContent = '× ' + Math.max(1, Math.round(total / 600000)); };
+    var calculate = function () { if (!salary || !months || !budget) return; var s = +salary.value, m = +months.value, b = +budget.value, labour = s * m, hypotheses = b * m, replacement = s * 1.33, total = labour + hypotheses + replacement; document.getElementById('salary-v').textContent = format(s); document.getElementById('months-v').textContent = m + ' мес.'; document.getElementById('budget-v').textContent = format(b); document.getElementById('o1').textContent = format(labour); document.getElementById('o2').textContent = format(hypotheses); document.getElementById('o3').textContent = format(replacement); document.getElementById('total').textContent = format(total); if (mobileTotal) mobileTotal.textContent = format(total); document.getElementById('ratio').textContent = '× ' + Math.max(1, Math.round(total / 600000)); };
     [salary, months, budget].forEach(function (item) { if (item) item.addEventListener('input', calculate); }); calculate();
     var tabs = Array.from(document.querySelectorAll('.tab[data-tab]'));
     var activateTab = function (activeTab, setFocus) {
